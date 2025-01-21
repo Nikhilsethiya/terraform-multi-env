@@ -1,0 +1,16 @@
+parameters:
+  - name: environment
+    type: string
+    default: 'dev'
+
+steps:
+  - task: TerraformTaskV4@4
+    displayName: terraform init
+    inputs:
+      provider: 'azurerm'
+      command: 'init'
+      backendServiceArm: 'Free Trial(6186ef48-ea89-4257-8b72-366360b071df)'
+      backendAzureRmResourceGroupName: '${{parameters.environment}}-rg-backend'
+      backendAzureRmStorageAccountName: 'nik${{parameters.environment}}backendstorage'
+      backendAzureRmContainerName: 'backendcontainer'
+      backendAzureRmKey: '${{parameters.environment}}.terraform.tfstate'
